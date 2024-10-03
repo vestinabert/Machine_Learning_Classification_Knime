@@ -20,7 +20,7 @@ This project focuses on applying machine learning techniques to classify data us
 - **Results**: The final models and results were documented in a structured spreadsheet, with results evaluated and commented on.
 
 All code or workflows are shared in this repository, along with the final analysis and insights derived from the experiments.
-
+## Data tables
 #### Naive Bayes
 
 | Threshold | **With Data Normalizer** |  **With Data Normalizer**   | **Without Data Normalizer** | **Without Data Normalizer** | |
@@ -79,3 +79,24 @@ All code or workflows are shared in this repository, along with the final analys
 | **400**   | 0.9589                   | 0.9981                 | 0.9569                      | 0.99910                | 0.9564            |
 | **450**   | 0.9585                   | 0.9981                 | 0.9565                      | 0.99910                | 0.9555            |
 | **500**   | 0.9581                   | 0.9981                 | 0.9560                      | 0.99910                | 0.9559            |
+
+## Summary of Top Model Performances
+| **Model**               | **Accuracy** | **Normalization** | **SMOTE**               | **Parameter**                 | **Value**    |
+|-------------------------|--------------|-------------------|-------------------------|-------------------------------|--------------|
+| Naive Bayes              | 0.1937       | With normalization | SMOTE oversample by 10   | Threshold                      | 0.1          |
+| Gradient Boosted Trees   | 0.9994       | Without normalization | SMOTE oversample by 10   | Nr. Model                      | 400-500      |
+| Decision Trees           | 0.9337       | With normalization | SMOTE oversample by 10   | Min Record Numbers per Node    | 100          |
+| Random Forest            | 0.9991       | Without normalization | SMOTE oversample by 10   | Nr. Model                      | 100-250      |
+## Model Performance Insights
+
+- **Naive Bayes**: 
+  - Lower threshold values (0.1 - 0.3) yield higher performance, especially with normalization and using SMOTE. This suggests that a lower threshold allows the model to better capture minority class examples (higher sensitivity). As the threshold increases (0.4 - 1), most performance metrics become similar, indicating that higher thresholds reduce model sensitivity.
+
+- **Gradient Boosted Trees**: 
+  - Performance with SMOTE oversampling is significantly higher compared to just using SMOTE balancing, with values nearing 0.9998–0.9997. The highest results are achieved with 200–250 models.
+
+- **Decision Trees**: 
+  - When the minimum record numbers per node is low (e.g., 100), performance is higher, particularly when using SMOTE oversampling with normalization, as the tree has more nodes and can better adapt to the data. For example, SMOTE oversampling with normalization results in a very high score of 0.9337, while without SMOTE, the score drops to 0.7499. As the minimum record numbers per node increases (e.g., 500), performance decreases as the tree becomes simpler with fewer nodes.
+
+- **Random Forest**: 
+  - A higher number of models (e.g., 400–500 models) generally improves accuracy, though the difference is not very significant compared to a smaller number of models (e.g., 100–200). SMOTE oversampling by 10 (without data normalization) shows the highest results (around 0.9991), indicating that the increased amount of data improves model performance.
